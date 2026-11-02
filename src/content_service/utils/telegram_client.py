@@ -1,6 +1,6 @@
 from telethon import TelegramClient
 from telethon.tl.types import Message
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import List, Tuple
 import logging
 from core.config import settings
@@ -131,3 +131,36 @@ class TelegramChannelAnalyzer:
         
         # Возвращаем топ N
         return sorted_posts[:limit]
+
+
+class MockTelegramChannelAnalyzer(TelegramChannelAnalyzer):
+    """Заглушка Telegram API для демо-режима (TELEGRAM_MOCK=true): возвращает тестовые посты без сети"""
+
+    def __init__(self):
+        self.client = None
+
+    async def get_channel_posts(
+        self,
+        channel_username: str,
+        start_date: datetime,
+        end_date: datetime,
+        limit: int = 100
+    ) -> List[Tuple[int, str, int, datetime]]:
+        total_seconds = max((end_date - start_date).total_seconds(), 1)
+        count = min(limit, 10)
+        return [
+            (
+                i + 1,
+                f"Демо-пост №{i + 1} из канала @{channel_username}",
+                (i * 37 % 10 + 1) * 100,
+                start_date + timedelta(seconds=total_seconds * (i + 0.5) / count),
+            )
+            for i in range(count)
+        ]
+
+
+def create_channel_analyzer() -> TelegramChannelAnalyzer:
+    if settings.telegram.mock:
+        logger.warning("TELEGRAM_MOCK включён: используются тестовые посты")
+        return MockTelegramChannelAnalyzer()
+    return TelegramChannelAnalyzer()

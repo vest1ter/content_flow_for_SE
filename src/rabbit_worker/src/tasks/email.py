@@ -11,6 +11,10 @@ logger = logging.getLogger(__name__)
 def handle_email_task(email, code):
     logger.debug(f"Received email: {email}, code: {code}")
 
+    if settings.smtp.mode == "console":
+        logger.info(f"[console email] to={email} verification_code={code}")
+        return True
+
     # SMTP настройки отправителя (используй свои!)
     SMTP_SERVER = settings.smtp.server
     SMTP_PORT = settings.smtp.port

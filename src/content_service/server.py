@@ -16,13 +16,13 @@ from models.models import Post
 from utils import JWT
 from database import s3_storage
 from core.config import settings
-from utils.telegram_client import TelegramChannelAnalyzer
+from utils.telegram_client import create_channel_analyzer
 
 # ML Core imports
 import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'ML'))
-from ml_core.llm_client import OpenRouterClient
+from ml_core.llm_client import OpenRouterClient, MockLLMClient
 from ml_core.pipelines.content_generation import generate_single_post, generate_content_plan
 from ml_core.pipelines.telegram_analysis import generate_posts_from_selected_telegram_posts
 from ml_core.schemas import (
@@ -61,6 +61,10 @@ class Contentervicer(ContentServiceServicer):
     def __init__(self):
         self.session = get_session()
         # Инициализируем LLM клиент
+        if settings.ml.mock:
+            self.llm_client = MockLLMClient()
+            logger.warning("ML_MOCK включён: используется MockLLMClient")
+            return
         try:
             self.llm_client = OpenRouterClient(
                 api_key=settings.ml.openrouter_api_key,
@@ -103,7 +107,7 @@ class Contentervicer(ContentServiceServicer):
             logger.info(f"Анализ канала {channel_username} с {start_date} по {end_date}")
 
             # Запускаем async функцию для получения постов за указанный период
-            analyzer = TelegramChannelAnalyzer()
+            analyzer = create_channel_analyzer()
             posts = asyncio.run(analyzer.get_channel_posts(channel_username, start_date, end_date, limit=100))
 
             if not posts:

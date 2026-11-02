@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import BaseModel, PostgresDsn
+from typing import Literal
 
 
 
@@ -9,10 +10,12 @@ class RabbitConfig(BaseModel):
     port: int
 
 class SMTPConfig(BaseModel):
-    server: str
-    port: int
-    user: str
-    password: str
+    # smtp — реальная отправка; console — код пишется в лог (демо-режим без почты)
+    mode: Literal["smtp", "console"] = "smtp"
+    server: str = ""
+    port: int = 587
+    user: str = ""
+    password: str = ""
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(

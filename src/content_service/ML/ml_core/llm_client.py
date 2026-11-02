@@ -1,5 +1,7 @@
 from __future__ import annotations
+import json
 import os
+import re
 import requests
 from dataclasses import dataclass
 from typing import List, Protocol, Any
@@ -104,3 +106,57 @@ class OpenRouterClient:
             raise RuntimeError(f"OpenRouter API Request failed: {e}")
         except (KeyError, IndexError) as e:
             raise RuntimeError(f"Unexpected response format from OpenRouter: {e}")
+
+
+class MockLLMClient:
+    """
+    Детерминированная заглушка LLM для демо-режима и тестов (ML_MOCK=true).
+    Не ходит в сеть; формат ответа повторяет то, что промпты требуют от модели.
+    """
+
+    model = "mock"
+
+    def generate(
+            self,
+            messages: List[ChatMessage],
+            max_tokens: int = 1024,
+            temperature: float = 0.7,
+    ) -> str:
+        prompt = "\n".join(m.content for m in messages)
+
+        # Генерация по популярным постам Telegram
+        match = re.search(r"Количество новых постов:\s*(\d+)", prompt)
+        if match:
+            count = int(match.group(1))
+            return json.dumps([
+                {
+                    "title": f"Демо-пост {i + 1}",
+                    "body": f"Демо-текст поста {i + 1}, созданный по мотивам популярных публикаций.",
+                    "suggested_hashtags": ["#demo", "#contentflow"],
+                }
+                for i in range(count)
+            ], ensure_ascii=False)
+
+        # Контент-план
+        match = re.search(r"Количество постов:\s*(\d+)", prompt)
+        if match:
+            count = int(match.group(1))
+            goal_match = re.search(r"Цель контент-плана:\s*(\w+)", prompt)
+            goal = goal_match.group(1) if goal_match else "other"
+            return json.dumps([
+                {
+                    "title": f"Идея {i + 1}",
+                    "idea": f"Демо-описание идеи поста {i + 1}.",
+                    "format": "пост",
+                    "goal": goal,
+                }
+                for i in range(count)
+            ], ensure_ascii=False)
+
+        # Один пост
+        return json.dumps({
+            "title": "Демо-пост",
+            "body": "Это демо-текст поста, сгенерированный без обращения к LLM (ML_MOCK=true).",
+            "suggested_hashtags": ["#demo", "#contentflow"],
+            "suggested_image_prompt": None,
+        }, ensure_ascii=False)

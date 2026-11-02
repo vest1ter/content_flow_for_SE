@@ -30,14 +30,18 @@ class MinioConfig(BaseModel):
 
 
 class TelegramConfig(BaseModel):
-    api_id: int
-    api_hash: str
+    api_id: int = 0
+    api_hash: str = ""
     bot_token: str | None = None
+    # Демо-режим: вместо Telegram API возвращаются тестовые посты
+    mock: bool = False
 
 
 class MLConfig(BaseModel):
-    openrouter_api_key: str
+    openrouter_api_key: str = ""
     openrouter_model: str = "mistralai/mistral-7b-instruct"
+    # Демо-режим: вместо OpenRouter используется MockLLMClient
+    mock: bool = False
 
 
 class Settings(BaseSettings):
@@ -51,8 +55,8 @@ class Settings(BaseSettings):
     db: DatabaseConfig
     jwt: JWTConfig
     minio: MinioConfig
-    telegram: TelegramConfig
-    ml: MLConfig
+    telegram: TelegramConfig = TelegramConfig()
+    ml: MLConfig = MLConfig()
 
 
 settings = Settings()

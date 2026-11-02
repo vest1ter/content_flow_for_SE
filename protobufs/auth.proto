@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package auth.v1;
+
+option go_package = "gen/auth/v1;authv1";
+option java_multiple_files = true;
+option java_package = "ru.mtuci.proto.auth.v1";
+
+// Сервис аутентификации и авторизации пользователей
+service AuthService {
+  rpc ValidateToken (TokenRequest) returns (TokenResponse);
+  rpc RegisterUser (RegisterUserRequest) returns (RegisterUserResponse);
+  rpc LoginUser (LoginUserRequest) returns (LoginUserResponse);
+  rpc SendVerifyCode (SendVerifyCodeRequest) returns (SendVerifyCodeResponse);
+  rpc ConfirmVerifyCode (ConfirmVerifyCodeRequest) returns (ConfirmVerifyCodeResponse);
+  rpc RefreshUserToken (RefreshUserTokenRequest) returns (RefreshUserTokenResponse);
+  rpc SendPasswordResetCode (SendPasswordResetCodeRequest) returns (SendPasswordResetCodeResponse);
+  rpc ConfirmPasswordResetCode (ConfirmPasswordResetCodeRequest) returns (ConfirmPasswordResetCodeResponse);
+  rpc ResetPassword (ResetPasswordRequest) returns (ResetPasswordResponse);
+}
+message RegisterUserRequest { string username = 1; string email = 2; string password = 3; string repeat_password = 4; }
+message RegisterUserResponse { string message = 1; bool confirmed = 2; string email_confirm_token = 3; }
+
+message LoginUserRequest { string username = 1; string password = 2; }
+message LoginUserResponse { bool confirmed = 1;
+  optional string access_token = 2;
+  optional string refresh_token = 3;
+  optional string email_confirm_token = 4;
+  string message = 5; }
+
+message TokenRequest { string token = 1; }
+message TokenResponse { bool valid = 1; string user_id = 2; }
+
+message SendVerifyCodeRequest { string email = 1; string email_token = 2; }
+message SendVerifyCodeResponse { string message = 1; }
+
+message ConfirmVerifyCodeRequest { int32 code = 1; string email_token = 2; }
+message ConfirmVerifyCodeResponse { bool confirmed = 1; string access_token = 2; string refresh_token = 3; string message = 4; }
+
+message RefreshUserTokenRequest { string refresh_token = 1; }
+message RefreshUserTokenResponse { string message = 1; string access_token = 2; }
+
+message SendPasswordResetCodeRequest { string email = 1; }
+message SendPasswordResetCodeResponse { string message = 1; string reset_pass_token = 2; }
+
+message ConfirmPasswordResetCodeRequest { int32 code = 1; string reset_pass_token = 2; }
+message ConfirmPasswordResetCodeResponse { bool confirmed = 1; string message = 2; }
+
+message ResetPasswordRequest { string reset_pass_token = 1; string new_password = 2; string repeat_password = 3; }
+message ResetPasswordResponse { bool success = 1; string message = 2; }

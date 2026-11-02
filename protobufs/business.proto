@@ -1,0 +1,114 @@
+syntax = "proto3";
+
+package business.v1;
+
+option go_package = "gen/business/v1;businessv1";
+option java_multiple_files = true;
+option java_package = "ru.mtuci.proto.business.v1";
+
+// Основной сервис для управления бизнесами
+service BusinessService {
+  // Создание нового бизнеса
+  rpc CreateBusiness(CreateBusinessRequest) returns (CreateBusinessResponse);
+  // Получение бизнеса по ID
+  rpc GetBusiness(GetBusinessRequest) returns (GetBusinessResponse);
+  // Обновление бизнеса
+  rpc UpdateBusiness(UpdateBusinessRequest) returns (UpdateBusinessResponse);
+  // Удаление бизнеса
+  rpc DeleteBusiness(DeleteBusinessRequest) returns (DeleteBusinessResponse);
+  // Получение списка бизнесов пользователя
+  rpc ListBusinesses(ListBusinessesRequest) returns (ListBusinessesResponse);
+  // Переключение активного бизнеса (опционально, может храниться на клиенте)
+  rpc SetActiveBusiness(SetActiveBusinessRequest) returns (SetActiveBusinessResponse);
+  // Получение активного бизнеса пользователя
+  rpc GetActiveBusiness(GetActiveBusinessRequest) returns (GetActiveBusinessResponse);
+}
+
+
+// Модель бизнеса
+message Business {
+  string id = 1;
+  string user_id = 2;
+  string name = 3;
+  string industry = 4;         // сфера деятельности
+  string audience_reach = 5;   // охват аудитории (опционально)
+  string region = 6;           // регион (опционально)
+  string description = 7;      // описание бизнеса
+  string logo_url = 8;         // устаревшее поле, оставлено для обратной совместимости
+  string logo_base64 = 13;     // base64 строка изображения логотипа
+  string communication_style = 9;
+  bool is_active = 12;
+  int64 created_at = 10;
+  int64 updated_at = 11;
+}
+
+// --- Запросы и ответы ---
+
+message CreateBusinessRequest {
+  string access_token = 1;
+  string name = 2;
+  string industry = 3;
+  string audience_reach = 4;
+  string region = 5;
+  string description = 6;
+  bytes logo_bytes = 7;  // ← изменено
+  string communication_style = 8;
+}
+
+message CreateBusinessResponse {
+  Business business = 1;
+}
+
+message GetBusinessRequest {
+  string business_id = 1;
+  string access_token = 2;
+}
+message GetBusinessResponse {
+  Business business = 1;
+}
+
+message UpdateBusinessRequest {
+  string business_id = 1;
+  optional string name = 2;
+  optional string industry = 3;
+  optional string audience_reach = 4;
+  optional string region = 5;
+  optional string description = 6;
+  optional bytes logo_bytes = 7;  // ← опционально (если не передан — не обновлять)
+  optional string communication_style = 8;
+  string access_token = 9;
+}
+message UpdateBusinessResponse {
+  Business business = 1;
+}
+
+message DeleteBusinessRequest {
+  string business_id = 1;
+  string access_token = 2;
+}
+message DeleteBusinessResponse {
+  bool success = 1;
+}
+
+message ListBusinessesRequest {
+  string access_token = 1;  // ← тоже через токен
+}
+message ListBusinessesResponse {
+  repeated Business businesses = 1;
+}
+
+message SetActiveBusinessRequest {
+  string business_id = 1;
+  string access_token = 2;
+}
+message SetActiveBusinessResponse {
+  bool success = 1;
+  Business business = 2;
+}
+
+message GetActiveBusinessRequest {
+  string access_token = 1;
+}
+message GetActiveBusinessResponse {
+  Business business = 1;
+}

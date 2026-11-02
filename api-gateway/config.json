@@ -1,0 +1,18 @@
+{
+  "server": {
+    "host": "0.0.0.0",
+    "port": 8080
+  },
+  "auth": {
+    "host": "auth-service",
+    "port": 50051
+  },
+  "business":{
+    "host": "business-service",
+    "port": 50051
+  },
+  "content":{
+    "host": "content-service",
+    "port": 50051
+  }
+}

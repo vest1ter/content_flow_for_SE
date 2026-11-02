@@ -1,0 +1,1611 @@
+/* Уникальный префикс для всех классов */
+.ta-page {
+  min-height: calc(100vh - 80px);
+  background: #f8fafc;
+  padding: 20px;
+}
+
+/* Хедер - используем те же классы что и везде, так как они общие */
+.ta-page .page-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ta-page .page-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0;
+}
+
+/* Кнопка назад - общий стиль */
+.ta-page .back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  margin-right: 50px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  color: #4a5568;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ta-page .back-btn:hover {
+  background: #f7fafc;
+  border-color: #cbd5e0;
+}
+
+/* Уведомления - уникальные классы */
+.ta-notification {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+
+.ta-notification.error {
+  background: #fed7d7;
+  border: 1px solid #fc8181;
+  color: #c53030;
+}
+
+.ta-notification.success {
+  background: #c6f6d5;
+  border: 1px solid #68d391;
+  color: #22543d;
+}
+
+.ta-notification-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.7;
+  padding: 0;
+  margin: 0;
+}
+
+.ta-notification-close:hover {
+  opacity: 1;
+}
+
+/* Основной контейнер - уникальный класс */
+.ta-container {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .ta-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Левая колонка */
+.ta-input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Карточки с уникальными классами */
+.ta-form-card,
+.ta-history-card,
+.ta-result-card,
+.ta-info-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+}
+
+.ta-form-card h2,
+.ta-history-card h3,
+.ta-result-card h2,
+.ta-info-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Форма */
+.ta-form-group {
+  margin-bottom: 20px;
+}
+
+.ta-form-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 8px;
+}
+
+.ta-form-input,
+.ta-form-textarea {
+  height: 43px;
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #2d3748;
+  background: #fff;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.ta-form-input:focus,
+.ta-form-textarea:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+.ta-form-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.ta-form-hint {
+  font-size: 12px;
+  color: #718096;
+  margin-top: 6px;
+}
+
+/* Информация о канале */
+.ta-channel-info {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  margin-top: 8px;
+}
+
+.ta-channel-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0088cc 0%, #34aadc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+}
+
+.ta-channel-details {
+  flex: 1;
+}
+
+.ta-channel-name {
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 2px;
+}
+
+.ta-channel-stats {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: #718096;
+}
+
+.ta-channel-stat {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Кнопки */
+.ta-btn-primary {
+  padding: 10px 20px;
+  background: #0088cc;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ta-btn-primary:hover:not(:disabled) {
+  background: #006699;
+}
+
+.ta-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Популярные посты - НОВЫЕ СТИЛИ ДЛЯ КНОПКИ РАЗВЕРТЫВАНИЯ */
+.ta-posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.ta-post-item {
+  padding: 12px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.ta-post-item:hover {
+  background: #edf2f7;
+  border-color: #cbd5e0;
+}
+
+.ta-post-item.selected {
+  background: #ebf8ff;
+  border-color: #4299e1;
+  border-left: 4px solid #4299e1;
+}
+
+.ta-post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 30px;
+  margin-bottom: 8px;
+}
+
+.ta-post-date {
+  font-size: 12px;
+  color: #718096;
+}
+
+.ta-post-views {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #2c5282;
+  background: #bee3f8;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* НОВАЯ КНОПКА "РАЗВЕРНУТЬ" */
+.ta-post-expand-btn {
+  background: none;
+  border: none;
+  color: #4299e1;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px 0;
+  text-align: left;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s;
+  margin-top: 4px;
+}
+
+.ta-post-expand-btn:hover {
+  color: #2b6cb0;
+  text-decoration: underline;
+}
+
+.ta-post-expand-btn svg {
+  transition: transform 0.2s;
+}
+
+.ta-post-expand-btn:hover svg {
+  transform: translateX(2px);
+}
+
+.ta-post-tags {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.ta-post-tag {
+  font-size: 10px;
+  background: #e2e8f0;
+  color: #4a5568;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+/* Чекбокс */
+.ta-post-checkbox {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 2px solid #cbd5e0;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ta-post-item.selected .ta-post-checkbox {
+  background: #4299e1;
+  border-color: #4299e1;
+}
+
+.ta-post-item.selected .ta-post-checkbox::after {
+  content: '✓';
+  position: absolute;
+  color: white;
+  font-size: 12px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Мультивыбор */
+.ta-multi-select {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 8px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.ta-selected-count {
+  font-size: 13px;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.ta-select-all-btn {
+  background: none;
+  border: 1px solid #cbd5e0;
+  color: #4a5568;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ta-select-all-btn:hover {
+  background: #edf2f7;
+}
+
+/* Правая колонка */
+.ta-result-section {
+  /* Стили наследуются из общей сетки */
+}
+
+.ta-result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.ta-result-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.ta-btn-copy,
+.ta-btn-edit,
+.ta-btn-save,
+.ta-btn-analyze {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+  border: 1px solid;
+  transition: all 0.2s;
+}
+
+.ta-btn-copy {
+  background: #e6fffa;
+  border-color: #81e6d9;
+  color: #234e52;
+}
+
+.ta-btn-copy:hover {
+  background: #b2f5ea;
+}
+
+.ta-btn-edit {
+  background: #fffaf0;
+  border-color: #feebc8;
+  color: #744210;
+}
+
+.ta-btn-edit.editing {
+  background: #c6f6d5;
+  border-color: #68d391;
+  color: #22543d;
+}
+
+.ta-btn-edit:hover {
+  background: #feebc8;
+}
+
+.ta-btn-edit.editing:hover {
+  background: #9ae6b4;
+}
+
+.ta-btn-save {
+  background: #ebf8ff;
+  border-color: #4299e1;
+  color: #2b6cb0;
+}
+
+.ta-btn-save:hover {
+  background: #bee3f8;
+}
+
+/* Пустое состояние */
+.ta-empty-result {
+  text-align: center;
+  padding: 40px 20px;
+  color: #718096;
+}
+
+.ta-empty-result h3 {
+  margin: 16px 0 8px;
+  color: #4a5568;
+}
+
+.ta-result-hint {
+  margin-top: 20px;
+  padding: 12px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  font-size: 13px;
+}
+
+/* Сводка выбранных постов */
+.ta-selected-summary {
+  margin-bottom: 20px;
+  padding: 12px;
+  background: #f0f9ff;
+  border-radius: 8px;
+  border: 1px solid #bee3f8;
+}
+
+.ta-selected-summary h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2c5282;
+  margin-bottom: 8px;
+}
+
+.ta-selected-list {
+  font-size: 13px;
+  color: #4a5568;
+}
+
+/* Текст поста */
+.ta-post-text {
+  padding: 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #2d3748;
+  white-space: pre-wrap;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.ta-post-text p {
+  margin: 0 0 12px 0;
+}
+
+.ta-post-text p:last-child {
+  margin-bottom: 0;
+}
+
+.ta-post-editor {
+  width: 100%;
+  min-height: 300px;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.ta-post-editor:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+/* Футер поста */
+.ta-post-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.ta-post-stats {
+  display: flex;
+  gap: 20px;
+}
+
+.ta-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ta-stat-label {
+  font-size: 12px;
+  color: #718096;
+}
+
+.ta-stat-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.ta-post-final-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* Информационная карточка */
+.ta-info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ta-info-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(129, 230, 217, 0.3);
+  font-size: 13px;
+  color: #234e52;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.ta-info-list li:before {
+  content: "•";
+  color: #38b2ac;
+}
+
+.ta-info-list li:last-child {
+  border-bottom: none;
+}
+
+/* Индикатор загрузки */
+.ta-loading-indicator {
+  text-align: center;
+  padding: 40px;
+  color: #718096;
+}
+
+.ta-loading-indicator h3 {
+  margin: 16px 0 8px;
+  color: #4a5568;
+}
+
+/* Спиннер */
+.ta-spinner-small {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: ta-spin 1s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes ta-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Блок "Для разработки" */
+.ta-dev-info {
+  margin: 20px 0 0 0;
+  padding: 16px;
+  background: #fffaf0;
+  border-top: 1px solid #feebc8;
+  border-left: 4px solid #dd6b20;
+  border-radius: 0 0 8px 8px;
+}
+
+.ta-dev-info-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #dd6b20;
+  font-size: 14px;
+}
+
+.ta-dev-info-content {
+  font-size: 13px;
+  color: #744210;
+  line-height: 1.5;
+}
+
+.ta-dev-info-content p {
+  margin-bottom: 8px;
+}
+
+.ta-dev-info-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* МОДАЛЬНОЕ ОКНО ДЛЯ ПОЛНОГО ТЕКСТА ПОСТА */
+.ta-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.ta-modal {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-width: 700px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ta-modal-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ta-modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0;
+}
+
+.ta-modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #718096;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.ta-modal-close:hover {
+  background: #f7fafc;
+  color: #4a5568;
+}
+
+.ta-modal-content {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.ta-modal-post-content {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #2d3748;
+  white-space: pre-wrap;
+}
+
+.ta-modal-post-content p {
+  margin: 0 0 16px 0;
+}
+
+.ta-modal-post-content p:last-child {
+  margin-bottom: 0;
+}
+
+.ta-modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #e2e8f0;
+  background: #f7fafc;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.ta-modal-stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #4a5568;
+}
+
+.ta-modal-stat-label {
+  font-weight: 500;
+}
+
+.ta-modal-stat-value {
+  color: #2d3748;
+}
+
+/* Стили для истории - БЕЗ НУМЕРАЦИИ */
+.ta-history-item {
+  padding: 12px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ta-history-item:hover {
+  background: #edf2f7;
+}
+
+.ta-history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.ta-history-date {
+  font-size: 12px;
+  color: #718096;
+}
+
+/* НОВАЯ КНОПКА УДАЛЕНИЯ ДЛЯ ИСТОРИИ */
+.ta-history-delete-btn {
+  background: none;
+  border: none;
+  color: #e53e3e;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ta-history-delete-btn:hover {
+  background: #fed7d7;
+  color: #c53030;
+}
+
+.ta-history-delete-btn:active {
+  transform: scale(0.95);
+}
+
+.ta-history-content {
+  font-size: 13px;
+  color: #4a5568;
+  line-height: 1.5;
+  margin: 8px 0;
+  padding: 8px;
+  background: #fff;
+  border-radius: 4px;
+  border-left: 3px solid #4299e1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ta-history-tags {
+  display: flex;
+  gap: 8px;
+}
+
+.ta-history-tag {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.ta-history-tag-channel {
+  background: #bee3f8;
+  color: #2c5282;
+}
+
+.ta-history-tag-count {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+/* ПАГИНАЦИЯ ИСТОРИИ */
+.ta-history-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.ta-pagination-btn {
+  padding: 6px 12px;
+  background: #edf2f7;
+  border: 1px solid #cbd5e0;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.ta-pagination-btn:hover:not(:disabled) {
+  background: #e2e8f0;
+}
+
+.ta-pagination-btn:disabled {
+  background: #f7fafc;
+  color: #a0aec0;
+  cursor: not-allowed;
+  border-color: #e2e8f0;
+}
+
+.ta-pagination-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.ta-pagination-info {
+  font-size: 12px;
+  color: #718096;
+}
+
+.ta-pagination-page-info {
+  font-size: 12px;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .ta-post-footer {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+  
+  .ta-post-stats {
+    justify-content: space-between;
+  }
+  
+  .ta-post-final-actions {
+    flex-direction: column;
+  }
+  
+  .ta-btn-copy,
+  .ta-btn-edit,
+  .ta-btn-save {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .ta-modal {
+    max-height: 95vh;
+  }
+  
+  .ta-modal-content {
+    padding: 16px;
+  }
+  
+  .ta-modal-footer {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .ta-modal-stat {
+    justify-content: space-between;
+  }
+  
+  .ta-history-pagination {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  
+  .ta-pagination-btn {
+    width: 100%;
+  }
+  
+  .ta-pagination-info {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .ta-history-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .ta-history-tags {
+    flex-wrap: wrap;
+  }
+  
+  .ta-post-expand-btn {
+    font-size: 11px;
+  }
+  
+  .ta-post-tag {
+    font-size: 9px;
+    padding: 1px 4px;
+  }
+}
+
+.popular-posts {
+    margin-left: 10px;
+}
+
+/* Улучшенные стили для заголовка истории */
+.ta-history-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.ta-history-card .ta-pagination-page-info {
+  font-size: 14px;
+  color: #718096;
+  font-weight: normal;
+  margin-left: 4px;
+}
+
+/* Эффект для элементов истории при наведении */
+.ta-history-item {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ta-history-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Анимация для кнопки удаления */
+@keyframes ta-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.ta-history-delete-btn {
+  animation: ta-fadeIn 0.3s ease-in-out;
+}
+
+/* Стили для пустой истории */
+.ta-history-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #718096;
+}
+
+.ta-history-empty h4 {
+  margin: 12px 0 8px;
+  color: #4a5568;
+  font-size: 14px;
+}
+
+.ta-history-empty p {
+  font-size: 13px;
+  margin: 0;
+}
+
+/* Стили для страницы пагинации */
+.ta-pagination-current {
+  background: #4299e1;
+  color: white;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.ta-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 4px;
+  margin-bottom: 12px;
+}
+
+.ta-history-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ta-history-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.ta-history-list::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.ta-history-list::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+.ta-history-item {
+  padding: 12px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ta-history-item:hover {
+  background: #edf2f7;
+  border-color: #cbd5e0;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Содержимое истории */
+.ta-history-content {
+  font-size: 13px;
+  color: #4a5568;
+  line-height: 1.5;
+  margin: 8px 0;
+  padding: 8px;
+  background: #fff;
+  border-radius: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.ta-history-item:hover .ta-history-content {
+  -webkit-line-clamp: 6;
+  background: #f9fafb;
+}
+
+/* Заголовок истории */
+.ta-history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.ta-history-date {
+  font-size: 12px;
+  color: #718096;
+  font-weight: 500;
+}
+
+/* Кнопка удаления */
+.ta-history-delete-btn {
+  background: none;
+  border: none;
+  color: #e53e3e;
+  cursor: pointer;
+  padding: 4px 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ta-history-delete-btn:hover {
+  background: #fed7d7;
+  color: #c53030;
+  transform: scale(1.1);
+}
+
+/* Теги истории */
+.ta-history-tags {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.ta-history-tag {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.ta-history-tag-channel {
+  background: #bee3f8;
+  color: #2c5282;
+}
+
+.ta-history-tag-count {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.ta-history-hint {
+  font-size: 12px;
+  color: #718096;
+  text-align: center;
+  padding: 8px;
+  border-top: 1px solid #e2e8f0;
+  margin-top: 8px;
+  background: #f7fafc;
+  border-radius: 0 0 8px 8px;
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+  .ta-history-list {
+    max-height: 250px;
+  }
+  
+  .ta-history-content {
+    font-size: 12px;
+  }
+  
+  .ta-history-tag {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ta-history-list {
+    max-height: 200px;
+  }
+  
+  .ta-history-item {
+    padding: 10px;
+  }
+}
+
+/* Эффект для пустой истории */
+.ta-history-empty {
+  text-align: center;
+  padding: 30px 20px;
+  color: #718096;
+  border: 2px dashed #e2e8f0;
+  border-radius: 8px;
+  background: #fafbfc;
+}
+
+.ta-history-empty h4 {
+  margin: 12px 0 8px;
+  color: #4a5568;
+  font-size: 14px;
+}
+
+.ta-history-empty p {
+  font-size: 13px;
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* Стили для модального окна истории */
+.ta-modal-history-content {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #2d3748;
+}
+
+.ta-modal-history-header {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ta-modal-history-channel h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ta-modal-history-channel h4::before {
+  content: '📊';
+  font-size: 18px;
+}
+
+.ta-modal-history-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: #718096;
+}
+
+.ta-modal-history-meta span:not(:last-child) {
+  display: flex;
+  align-items: center;
+}
+
+.ta-modal-history-meta span:nth-child(2) {
+  color: #cbd5e0;
+}
+
+.ta-modal-history-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: #ebf8ff;
+  border-radius: 6px;
+  border: 1px solid #bee3f8;
+}
+
+.ta-modal-history-link svg {
+  color: #3182ce;
+}
+
+.ta-modal-link {
+  color: #3182ce;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.ta-modal-link:hover {
+  color: #2c5282;
+  text-decoration: underline;
+}
+
+/* Сгенерированный контент в истории */
+.ta-modal-history-generated {
+  margin-bottom: 24px;
+}
+
+.ta-modal-history-generated h5 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ta-modal-history-generated h5::before {
+  content: '🎯';
+}
+
+.ta-modal-generated-text {
+  padding: 16px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.ta-modal-generated-text p {
+  margin: 0 0 12px 0;
+}
+
+.ta-modal-generated-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Проанализированные посты в истории */
+.ta-modal-history-posts {
+  margin-top: 24px;
+}
+
+.ta-modal-history-posts h5 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ta-modal-history-posts h5::before {
+  content: '📋';
+}
+
+.ta-modal-posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.ta-modal-post-item {
+  padding: 12px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.ta-modal-post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.ta-modal-post-number {
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  background: #4299e1;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ta-modal-post-views {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #2c5282;
+  background: #bee3f8;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+.ta-modal-post-views svg {
+  width: 12px;
+  height: 12px;
+}
+
+.ta-modal-post-content {
+  font-size: 13px;
+  color: #4a5568;
+  line-height: 1.5;
+  padding: 8px;
+  background: #fff;
+  border-radius: 6px;
+  border-left: 3px solid #4299e1;
+}
+
+/* Футер для истории */
+.ta-modal-history-footer {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Скроллбар для контента истории */
+.ta-modal-generated-text::-webkit-scrollbar,
+.ta-modal-posts-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ta-modal-generated-text::-webkit-scrollbar-track,
+.ta-modal-posts-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.ta-modal-generated-text::-webkit-scrollbar-thumb,
+.ta-modal-posts-list::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.ta-modal-generated-text::-webkit-scrollbar-thumb:hover,
+.ta-modal-posts-list::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Адаптивные стили для модального окна истории */
+@media (max-width: 768px) {
+  .ta-modal-history-content {
+    font-size: 13px;
+  }
+  
+  .ta-modal-history-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .ta-modal-history-meta span:nth-child(2) {
+    display: none;
+  }
+  
+  .ta-modal-generated-text {
+    max-height: 200px;
+    padding: 12px;
+  }
+  
+  .ta-modal-posts-list {
+    max-height: 150px;
+  }
+  
+  .ta-modal-history-footer {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .ta-modal-stat {
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .ta-modal-history-channel h4 {
+    font-size: 14px;
+  }
+  
+  .ta-modal-history-generated h5,
+  .ta-modal-history-posts h5 {
+    font-size: 13px;
+  }
+  
+  .ta-modal-post-content {
+    font-size: 12px;
+    padding: 6px;
+  }
+  
+  .ta-modal-post-views {
+    font-size: 11px;
+    padding: 2px 6px;
+  }
+}
+
+/* Пустое состояние для проанализированных постов */
+.ta-modal-no-posts {
+  text-align: center;
+  padding: 20px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border: 2px dashed #e2e8f0;
+  color: #718096;
+  font-size: 13px;
+}
+
+/* Подсказка для прокрутки */
+.ta-modal-scroll-hint {
+  font-size: 11px;
+  color: #a0aec0;
+  text-align: center;
+  padding: 4px;
+  background: #f7fafc;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+/* Анимация загрузки для истории */
+@keyframes fadeInHistory {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ta-modal-history-content > * {
+  animation: fadeInHistory 0.3s ease-out forwards;
+}
+
+.ta-modal-history-content > *:nth-child(1) { animation-delay: 0.1s; }
+.ta-modal-history-content > *:nth-child(2) { animation-delay: 0.2s; }
+.ta-modal-history-content > *:nth-child(3) { animation-delay: 0.3s; }
+
+/* Индикатор важной информации */
+.ta-modal-important {
+  padding: 12px;
+  background: #fffaf0;
+  border-radius: 8px;
+  border-left: 4px solid #ed8936;
+  margin-bottom: 16px;
+}
+
+.ta-modal-important-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #dd6b20;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ta-modal-important-text {
+  font-size: 12px;
+  color: #744210;
+  line-height: 1.4;
+}

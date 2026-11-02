@@ -1,0 +1,124 @@
+syntax = "proto3";
+
+package content.v1;
+
+option go_package = "gen/content/v1;contentv1";
+option java_multiple_files = true;
+option java_package = "ru.mtuci.proto.content.v1";
+
+// Сервис управления контентом и генерации постов
+service ContentService {
+  rpc AnalyzeTelegramChannel (AnalyzeTelegramChannelRequest) returns (AnalyzeTelegramChannelResponse);
+  rpc GeneratePostFromTelegramPosts (GeneratePostFromTelegramPostsRequest) returns (GeneratePostFromTelegramPostsResponse);
+  rpc GenerateBusinessPost (GenerateBusinessPostRequest) returns (GenerateBusinessPostResponse);
+  rpc GenerateContentPlan (GenerateContentPlanRequest) returns (GenerateContentPlanResponse);
+  rpc GetContentPlan (GetContentPlanRequest) returns (GetContentPlanResponse);
+}
+
+message AnalyzeTelegramChannelRequest {
+  string channel_username = 1;  // короткое имя канала (например, @channel_name)
+  int64 start_date = 2;         // начало периода (unix timestamp)
+  int64 end_date = 3;           // конец периода (unix timestamp)
+  string access_token = 4;
+}
+
+message TelegramPost {
+  int32 message_id = 1;
+  string text = 2;
+  int32 views = 3;
+  int64 date = 4;              // unix timestamp
+}
+
+message AnalyzeTelegramChannelResponse {
+  repeated TelegramPost popular_posts = 1;
+  string message = 2;
+}
+
+message SelectedPost {
+  int32 message_id = 1;
+  string text = 2;
+  int32 views = 3;
+}
+
+message GeneratePostFromTelegramPostsRequest {
+  repeated SelectedPost selected_posts = 1;  // Выбранные посты с текстом и просмотрами
+  BusinessInfo business_info = 2;            // Информация о бизнесе (передается через API Gateway)
+  string access_token = 3;
+}
+
+message GeneratePostFromTelegramPostsResponse {
+  string generated_post = 1;
+  string message = 2;
+}
+
+enum PostGoal {
+  INCREASE_SALES = 0;
+  INCREASE_ENGAGEMENT = 1;
+  AWARENESS = 2;
+  OTHER = 3;
+}
+
+message BusinessInfo {
+  string id = 1;
+  string name = 2;
+  string industry = 3;
+  string description = 4;
+  string communication_style = 5;
+  optional string audience_reach = 6;
+  optional string region = 7;
+}
+
+message GenerateBusinessPostRequest {
+  string description = 1;           // Описание для поста (обязательно)
+  PostGoal goal = 2;                // Цель поста
+  optional string tone = 3;         // Тон поста (опционально, строка)
+  BusinessInfo business_info = 4;   // Информация о бизнесе (передается через API Gateway)
+  string access_token = 5;
+}
+
+message GenerateBusinessPostResponse {
+  string generated_post = 1;         // Сгенерированный текст поста
+  string message = 2;
+}
+
+message ContentPlanItem {
+  string title = 1;                  // Заголовок идеи
+  string idea = 2;                   // Подробное описание идеи
+  string format = 3;                 // Формат контента (например, "пост", "опрос", "кейс-стади")
+  PostGoal goal = 4;                 // Цель поста
+  optional int64 planned_date = 5;   // Планируемая дата публикации (unix timestamp, опционально)
+}
+
+message GenerateContentPlanRequest {
+  BusinessInfo business_info = 1;    // Информация о бизнесе (передается через API Gateway)
+  PostGoal goal = 2;                 // Цель контент-плана
+  int32 total_posts = 3;             // Количество идей для генерации
+  int32 period_days = 4;             // Период в днях
+  optional string description = 5;    // Опциональное описание (фокус на новых продуктах и т.д.)
+  string access_token = 6;
+}
+
+message GenerateContentPlanResponse {
+  repeated ContentPlanItem items = 1; // Список идей для контент-плана
+  string message = 2;
+  string plan_id = 3;  // ID сохраненного контент-плана
+}
+
+message GetContentPlanRequest {
+  string plan_id = 1;  // ID контент-плана
+  string access_token = 2;
+}
+
+message GetContentPlanResponse {
+  string plan_id = 1;
+  string user_id = 2;
+  optional string business_id = 3;
+  PostGoal goal = 4;
+  int32 total_posts = 5;
+  int32 period_days = 6;
+  optional string description = 7;
+  repeated ContentPlanItem items = 8;  // Список идей контент-плана
+  int64 created_at = 9;  // Unix timestamp
+  optional int64 updated_at = 10;  // Unix timestamp
+  string message = 11;
+}

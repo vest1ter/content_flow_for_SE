@@ -1,0 +1,22 @@
+%% Диаграмма состояний контент-плана (US-10, FR-9). Целевой жизненный цикл; сейчас реализованы
+%% только «Генерация» и «Сохранён» (план пишется в БД сразу после генерации).
+stateDiagram-v2
+    state "Генерация" as Generating
+    state "Черновик" as Draft
+    state "Ошибка генерации" as Failed
+    state "Сохранён" as Saved
+    state "Удалён" as Deleted
+
+    [*] --> Generating : цель, число идей, срок
+    Generating --> Draft : LLM вернул идеи, даты расставлены
+    Generating --> Failed : LLM недоступен или невалидный JSON
+    Failed --> Generating : повторить
+    Failed --> [*] : отказаться
+
+    Draft --> Draft : изменить, удалить, добавить идею
+    Draft --> Saved : «Сохранить»
+    Draft --> [*] : уйти без сохранения
+
+    Saved --> Draft : открыть на редактирование
+    Saved --> Deleted : «Удалить»
+    Deleted --> [*]

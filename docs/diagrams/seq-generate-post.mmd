@@ -1,0 +1,25 @@
+%% Диаграмма последовательности: генерация поста для бизнеса (US-9, FR-8)
+sequenceDiagram
+    autonumber
+    actor U as Пользователь
+    participant FE as Frontend
+    participant GW as API Gateway
+    participant BS as Business Service
+    participant CS as Content Service
+    participant LLM as OpenRouter
+    participant DB as PostgreSQL (content)
+
+    U->>FE: описание, цель, тон, «Сгенерировать»
+    FE->>GW: POST /api/v1/content/generate_post/{business_id}<br/>Authorization: Bearer token
+    GW->>BS: GetBusiness(business_id, token)
+    BS->>BS: проверка JWT и владельца бизнеса
+    BS-->>GW: профиль бизнеса
+    GW->>CS: GenerateBusinessPost(description, goal, tone, business_info, token)
+    CS->>CS: проверка JWT и обязательных полей
+    CS->>LLM: chat/completions (промпт с контекстом бизнеса)
+    LLM-->>CS: JSON {title, body, hashtags}
+    CS->>CS: safe_json_parse, маппинг в GeneratedPost
+    CS->>DB: INSERT posts
+    CS-->>GW: generated_post
+    GW-->>FE: 200 {generated_post, message}
+    FE-->>U: текст поста в редакторе

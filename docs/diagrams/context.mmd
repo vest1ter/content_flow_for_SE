@@ -1,0 +1,23 @@
+%% Диаграмма контекста ContentFlow AI (раздел 1, NFR-4)
+flowchart LR
+    user(["Пользователь<br/>владелец бизнеса / SMM"])
+
+    subgraph system["ContentFlow AI"]
+        direction TB
+        web["Веб-интерфейс<br/>(React)"]
+        core["Серверная часть<br/>API Gateway + сервисы<br/>auth / business / content"]
+        web --> core
+    end
+
+    llm[["OpenRouter<br/>LLM-провайдер"]]
+    tg[["Telegram API"]]
+    smtp[["Почтовый сервер<br/>SMTP"]]
+
+    user -- "профиль бизнеса,<br/>параметры генерации" --> web
+    web -- "посты, контент-планы,<br/>популярные посты" --> user
+    core -- "промпт с контекстом бизнеса" --> llm
+    llm -- "текст / JSON идей" --> core
+    core -- "запрос постов канала" --> tg
+    tg -- "посты и просмотры" --> core
+    core -- "письмо с кодом" --> smtp
+    smtp -. "письмо" .-> user

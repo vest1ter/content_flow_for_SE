@@ -1,0 +1,37 @@
+%% Диаграмма последовательности: регистрация и подтверждение email с обработкой ошибки (US-1, FR-1)
+sequenceDiagram
+    autonumber
+    actor U as Пользователь
+    participant GW as API Gateway
+    participant AS as Auth Service
+    participant R as Redis
+    participant MQ as RabbitMQ
+    participant W as rabbit_worker
+    participant M as Почтовый сервер
+
+    U->>GW: POST /auth/register {username, email, password}
+    GW->>GW: email содержит @, пароль не короче 5 символов и с цифрой
+    GW->>AS: RegisterUser
+    AS->>AS: INSERT users (confirmed = false)
+    AS-->>GW: email_confirm_token
+    GW->>AS: SendVerifyCode(email, token)
+    AS->>R: SETEX code(user_id), 300 с
+    AS->>MQ: publish email_codes {email, code}
+    GW-->>U: 201 {email_confirm_token}
+    MQ->>W: доставка задачи
+    W->>M: письмо с кодом
+    M-->>U: код подтверждения
+
+    U->>GW: POST /auth/confirm {email_token, code}
+    GW->>AS: ConfirmVerifyCode
+    AS->>R: GET code(user_id)
+    alt код совпал
+        AS->>AS: UPDATE users SET confirmed = true
+        AS->>R: DEL code(user_id)
+        AS-->>GW: access_token, refresh_token
+        GW-->>U: 200 confirmed = true
+    else код неверный или истёк
+        AS-->>GW: gRPC INTERNAL «codes dont match» (требуется INVALID_ARGUMENT)
+        GW-->>U: 500 «internal server error» (требуется 400 «Неверный код»)
+        Note over AS,R: учётная запись остаётся неподтверждённой, токены не выдаются
+    end

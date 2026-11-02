@@ -1,0 +1,77 @@
+%% Модель данных предметной области (раздел 1, термины). Связи между базами сервисов логические (по id).
+classDiagram
+    direction LR
+    class User["Пользователь (User)"] {
+        UUID id
+        string username
+        string email
+        string hashed_password
+        bool confirmed
+        datetime created_at
+    }
+    class Business["Бизнес (BusinessModel)"] {
+        UUID id
+        UUID user_id
+        string name
+        string industry
+        string audience_reach
+        string region
+        text description
+        string logo_url
+        CommunicationStyle communication_style
+        bool is_active
+        datetime created_at
+        datetime updated_at
+    }
+    class Post["Пост (Post)"] {
+        UUID id
+        UUID user_id
+        UUID business_id
+        PostType post_type
+        string platform
+        text post_text
+        PostGoal goal
+        string tone
+        text description
+        json source_data
+        datetime created_at
+    }
+    class ContentPlan["Контент-план (ContentPlan)"] {
+        UUID id
+        UUID user_id
+        UUID business_id
+        PostGoal goal
+        int total_posts
+        int period_days
+        text description
+        datetime created_at
+    }
+    class ContentPlanItem["Идея контент-плана (ContentPlanItem)"] {
+        date planned_date
+        string title
+        text idea
+        string format
+        PostGoal goal
+    }
+    class CommunicationStyle {
+        <<enumeration>>
+        formal
+        friendly
+        professional
+    }
+    class PostGoal {
+        <<enumeration>>
+        increase_sales
+        increase_engagement
+        increase_awareness
+        other
+    }
+
+    User "1" --> "0..2" Business : владеет
+    Business "1" --> "0..*" Post : для бизнеса
+    Business "1" --> "0..*" ContentPlan : для бизнеса
+    User "1" --> "0..*" Post : автор
+    ContentPlan "1" *-- "1..*" ContentPlanItem : items (JSON)
+    Business ..> CommunicationStyle
+    Post ..> PostGoal
+    ContentPlan ..> PostGoal

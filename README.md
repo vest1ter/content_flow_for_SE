@@ -81,8 +81,9 @@ docker compose logs rabbit_worker | grep verification_code
 | Дата | ОС | Кто проверял | Способ | Результат |
 |---|---|---|---|---|
 | 2026-11-02 | Windows 10 Pro 22H2 (build 19045), Docker Desktop 27.2.0, Compose v2.29.2, Python 3.13.5 | Павел Григорьев | `cp .env.example .env` (порт gateway изменён на 8081 — 8080 занят), `docker compose up -d --build`, `python scripts/smoke_test.py` | Все 13 контейнеров запущены, smoke-тест пройден; UI открывается на http://localhost:3000 |
+| 2026-11-03 | Windows 11 Pro 25H2 (build 26200), Docker Desktop (Engine 29.8.0), Compose v5.5.1, Python 3.14.3 | Владислав Мякишев | Чистый `git clone`, `git checkout lab-1`, `cp .env.example .env`, `docker compose up -d --build`, `python scripts/smoke_test.py` | Smoke-тест пройден |
 
-Проверку на машине другого участника или в чистой ВМ нужно выполнить по этой инструкции и добавить строку в таблицу.
+При следующей проверке (другая машина или чистая ВМ) добавить строку в таблицу.
 
 ## Работа с репозиторием
 
